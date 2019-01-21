@@ -10,17 +10,19 @@ export const SIGNUP = 'SIGNUP';
 export const LOGOUT = 'LOGOUT';
 export const TOKEN = 'TOKEN';
 
-export class SigninAction extends Action {
+export class SigninAction implements Action {
   readonly type = SIGNIN;
-  constructor( public payload: {login: string, password: string})
+  constructor( public payload: {login: string, password: string}) {}
 }
-export class SignupAction extends Action {
+export class SignupAction implements Action {
   readonly type = SIGNUP;
-  constructor( public payload: {login: string, password: string})
+  constructor( public payload: {login: string, password: string}) {}
 }
-export class LogoutAction extends Action {
+export class LogoutAction implements Action {
   readonly type = LOGOUT;
 }
-export class TokenAction extends Action {
+export class TokenAction implements Action {
   readonly type = TOKEN;
 }
+
+export type AuthActions = SigninAction | SignupAction | LogoutAction | TokenAction;
