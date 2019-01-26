@@ -1,32 +1,32 @@
-import * as firebase from 'firebase/app';
+import 'firebase/auth';
 import * as fromAuthActions from './auth.actions';
 
-const initialState: fromAuthActions.State = {
+export class State {
+  authenticated: boolean = false;
+  token: string = null;
+}
+
+const initialState: State = {
   token: null,
-  authorize: false
+  authenticated: false
 };
 
-export function authReducers(state: fromAuthActions.State = initialState, action: fromAuthActions.AuthActions) {
+export function authReducers(state: State = initialState, action: fromAuthActions.AuthActions) {
   switch (action.type) {
+    case (fromAuthActions.TRY_SIGNIN):
+    case (fromAuthActions.TRY_SIGNUP):
+      return state;
     case (fromAuthActions.SIGNUP):
-      // firebase.auth().createUserWithEmailAndPassword(action.payload.login, action.payload.password)
-      //   .then(value => {
-      //     console.log('asd' , value);
-      //   });
-      console.log('state', state, action);
-          return {...state, authorize: true};
     case (fromAuthActions.SIGNIN):
-      // firebase.auth().signInWithEmailAndPassword(action.payload.login, action.payload.password)
-      //   .then(value => {
-      //     console.log('signin', value);
-      //   });
-          return state;
+      return {
+        ...state, authenticated: true
+      };
     case (fromAuthActions.LOGOUT):
       return {
-        ...state, authorize: false, token: null
+        ...state, authenticated: false, token: null
       };
-    case (fromAuthActions.TOKEN):
-      return state;
+    case (fromAuthActions.SET_TOKEN):
+      return {...state, token: action.payload};
     default:
       return state;
   }

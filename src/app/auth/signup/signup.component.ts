@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, ValidationErrors, Validator, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Store} from '@ngrx/store';
+import {AppState} from '../../app.state';
 
 import * as fromAuthAction from '../store/auth.actions';
 
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
 
   private form: FormGroup;
 
-  constructor(private store: Store<{authState}>) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -26,7 +27,7 @@ export class SignupComponent implements OnInit {
 
   private signUp() {
     console.log('form', this.form.value);
-    this.store.dispatch(new fromAuthAction.SignupAction(this.form.value));
+    this.store.dispatch(new fromAuthAction.TrySignupAction(this.form.value));
   }
 
 }

@@ -1,5 +1,9 @@
-import {State} from './author.actions';
+import {Author} from '../author.model';
 import * as fromAuthorsAction from './author.actions';
+
+export class State {
+  authors: Author[];
+}
 
 export function authorActionReducer(state: State, action: fromAuthorsAction.AuthorActions) {
   switch (action.type) {
