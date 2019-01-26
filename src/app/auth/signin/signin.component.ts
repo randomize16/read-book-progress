@@ -11,7 +11,7 @@ import * as fromAuthAction from '../store/auth.actions';
 })
 export class SigninComponent implements OnInit {
 
-  private form: FormGroup;
+  form: FormGroup;
 
   constructor(private store: Store<AppState>) { }
 
@@ -23,7 +23,7 @@ export class SigninComponent implements OnInit {
 
   }
 
-  private signIn() {
+  signIn() {
     this.store.dispatch(new fromAuthAction.TrySigninAction(this.form.value));
   }
 }

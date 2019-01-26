@@ -13,7 +13,7 @@ import * as fromAuthAction from '../store/auth.actions';
 })
 export class SignupComponent implements OnInit {
 
-  private form: FormGroup;
+  form: FormGroup;
 
   constructor(private store: Store<AppState>) { }
 
@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
 
   }
 
-  private signUp() {
+  signUp() {
     console.log('form', this.form.value);
     this.store.dispatch(new fromAuthAction.TrySignupAction(this.form.value));
   }

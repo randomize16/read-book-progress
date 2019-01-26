@@ -13,7 +13,7 @@ import * as fromAuthReducers from '../auth/store/auth.reducer';
 })
 export class HeaderComponent implements OnInit {
 
-  private authState: Observable<fromAuthReducers.State>;
+  authState: Observable<fromAuthReducers.State>;
 
   constructor(private store: Store<appState.AppState>) { }
 
