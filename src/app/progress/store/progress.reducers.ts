@@ -1,4 +1,4 @@
-import {ProgressItem} from '../progress.model';
+import {ProgressItem, Quarter, Source} from '../progress.model';
 import * as fromProgressAction from './progress.actions';
 
 
@@ -7,7 +7,21 @@ export class State {
 }
 
 const initialState: State = {
-  progressItemList: []
+  progressItemList: [
+    {
+      author: 'king go',
+      comments: 'need more',
+      isComics: false,
+      isFinish: true,
+      isSeries: true,
+      month: [10],
+      name: 'gogo try',
+      quarter: Quarter.First,
+      rating: 3,
+      source: Source.Reader,
+      year: '2019'
+    }
+  ]
 };
 
 export function progressReducers(state: State = initialState, action: fromProgressAction.ProgressActions) {
@@ -22,6 +36,7 @@ export function progressReducers(state: State = initialState, action: fromProgre
     case (fromProgressAction.UPDATE_PROGRESS):
       const progressList = [...state.progressItemList];
       progressList[action.payload.index] = {...action.payload.progressItem};
+      console.log('update data', progressList);
       return {...state, progressItemList: progressList};
     case (fromProgressAction.REMOVE_PROGRESS):
       const oldProgressList = [...state.progressItemList];

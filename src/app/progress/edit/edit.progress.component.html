@@ -1,0 +1,52 @@
+<form [formGroup]="editProgressForm" novalidate (ngSubmit)="saveProgress()">
+  <mat-card class="wrapper-card">
+    <mat-card-header>
+      <mat-card-title>Sing up</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="editProgressForm.controls['name'].hasError('name')">
+              Enter correct email
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Year" formControlName="year">
+            <mat-error *ngIf="editProgressForm.controls['year'].hasError('year')">
+              Enter correct length
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Source" formControlName="source">
+              <mat-option *ngFor="let source of sources" [value]="source.key">
+                {{source.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Quarter" formControlName="quarter">
+              <mat-option *ngFor="let quarter of quarters" [value]="quarter.key">
+                {{quarter.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button mat-raised-button color="basic" [routerLink]="['../']">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

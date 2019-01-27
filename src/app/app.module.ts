@@ -13,7 +13,6 @@ import { AuthorsListComponent } from './authors/authors-list/authors-list.compon
 import { GenresComponent } from './genres/genres.component';
 import * as fromAppState from './app.state';
 import {MaterialModule} from './material.module';
-import { AuthenticatedDirective } from './auth/authenticated.directive';
 import {ProgressModule} from './progress/progress.module';
 
 @NgModule({
