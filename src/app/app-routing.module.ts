@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AuthGuard} from './auth/auth.guard';
-import {SigninComponent} from './auth/signin/signin.component';
-import {SignupComponent} from './auth/signup/signup.component';
 import {AuthorsListComponent} from './authors/authors-list/authors-list.component';
 import {GenresComponent} from './genres/genres.component';
 
 const routes: Routes = [
-  { path: '', component: AuthorsListComponent},
-  { path: 'authors', component: AuthorsListComponent},
-  { path: 'genres', component: GenresComponent},
-  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard]},
-  { path: 'signin', component: SigninComponent}
+  { path: 'authors', component: AuthorsListComponent, canActivate: [AuthGuard]},
+  { path: 'genres', component: GenresComponent, canActivate: [AuthGuard]},
+  { path: '', pathMatch: 'full', redirectTo: '/progress'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

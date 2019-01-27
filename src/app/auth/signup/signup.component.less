@@ -1,19 +1,29 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.container > * {
+.full-width {
   width: 100%;
 }
 
-.example-card {
-  max-width: 400px;
+.wrapper-card {
+  min-width: 120px;
+  margin: 20px auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
 }
 
 
-.form-wrapper {
-   text-align: center;
-  margin-left: 30%;
-  margin-top: 10px;
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+form {
+  max-width: 400px;
+  margin-left: 5px;
+
 }

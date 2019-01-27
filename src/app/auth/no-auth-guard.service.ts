@@ -7,13 +7,13 @@ import {map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class NoAuthGuard implements CanActivate {
 
   constructor(private store: Store<{authState}>) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select('auth').pipe(map(value => value.authenticated));
+    return this.store.select('auth').pipe(map(auth => !auth.authentiated));
   }
 }

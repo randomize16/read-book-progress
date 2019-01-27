@@ -1,5 +1,0 @@
-<mat-toolbar>
-  <button mat-button routerLink="/signin" *ngIf="!(authState | async).authenticated">Sing In</button>
-  <button mat-button routerLink="/signup" *ngIf="!(authState | async).authenticated">Sign Up</button>
-  <button mat-button (click)="logout()" *ngIf="(authState | async).authenticated">Logout</button>
-</mat-toolbar>

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../app.state';
 
@@ -11,23 +11,21 @@ import * as fromAuthAction from '../store/auth.actions';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.less']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
-  form: FormGroup;
+  signUpForm: FormGroup = this.fb.group({
+    email: [null, Validators.compose([
+      Validators.required, Validators.email
+    ])],
+    password: [null, Validators.compose([
+      Validators.required, Validators.minLength(6)
+    ])]
+  });
 
-  constructor(private store: Store<AppState>) { }
-
-  ngOnInit() {
-    this.form = new FormGroup({
-      'login': new FormControl('', Validators.email),
-      'password': new FormControl('')
-    });
-
-  }
+  constructor(private store: Store<AppState>, private fb: FormBuilder) { }
 
   signUp() {
-    console.log('form', this.form.value);
-    this.store.dispatch(new fromAuthAction.TrySignupAction(this.form.value));
+    this.store.dispatch(new fromAuthAction.TrySignupAction(this.signUpForm.value));
   }
 
 }

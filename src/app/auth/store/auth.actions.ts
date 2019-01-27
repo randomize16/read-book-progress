@@ -9,11 +9,11 @@ export const SET_TOKEN = 'SET_TOKEN';
 
 export class TrySigninAction implements Action {
   readonly type = TRY_SIGNIN;
-  constructor( public payload: {login: string, password: string}) {}
+  constructor( public payload: {email: string, password: string}) {}
 }
 export class TrySignupAction implements Action {
   readonly type = TRY_SIGNUP;
-  constructor( public payload: {login: string, password: string}) {}
+  constructor( public payload: {email: string, password: string}) {}
 }
 
 export class SigninAction implements Action {
