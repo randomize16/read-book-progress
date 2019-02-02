@@ -33,4 +33,5 @@ export class UpdateProgressAction implements Action{
   constructor(public payload: {index: number, progressItem: ProgressItem }) {}
 }
 
-export type ProgressActions = FetchProgressListAction | SaveProgressListAction | AddProgressAction | RemoveProgressAction | UpdateProgressAction;
+export type ProgressActions = FetchProgressListAction
+  | SaveProgressListAction | AddProgressAction | RemoveProgressAction | UpdateProgressAction;

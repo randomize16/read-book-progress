@@ -11,6 +11,7 @@ const initialState: State = {
     {
       author: 'king go',
       comments: 'need more',
+      genres: 'comedy',
       isComics: false,
       isFinish: true,
       isSeries: true,

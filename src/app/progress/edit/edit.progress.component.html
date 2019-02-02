@@ -15,21 +15,41 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Year" formControlName="year">
-            <mat-error *ngIf="editProgressForm.controls['year'].hasError('year')">
-              Enter correct length
-            </mat-error>
+            <mat-select placeholder="Source" formControlName="source">
+              <mat-option *ngFor="let source of sources" [value]="source.key">
+                {{source.value}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Source" formControlName="source">
-              <mat-option *ngFor="let source of sources" [value]="source.key">
-                {{source.value}}
+            <mat-select placeholder="Author" formControlName="author">
+              <mat-option *ngFor="let author of (authors | async)" [value]="author.key">
+                {{author.value}}
               </mat-option>
             </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Genres" formControlName="genres">
+              <mat-option *ngFor="let genres of (genreses | async)" [value]="genres.key">
+                {{quarter.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Year" formControlName="year">
+            <mat-error *ngIf="editProgressForm.controls['year'].hasError('year')">
+              Enter correct length
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
@@ -41,11 +61,45 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Month" formControlName="month">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{month}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
-
+      <div class="row">
+        <div class="col">
+          <mat-checkbox formControlName="isComics">Comics?</mat-checkbox>
+        </div>
+        <div class="col">
+          <mat-checkbox formControlName="isSeries">Serias?</mat-checkbox>
+        </div>
+        <div class="col">
+          <mat-checkbox formControlName="isSeries">Serias?</mat-checkbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Rating" formControlName="rating">
+            <mat-error *ngIf="editProgressForm.controls['rating'].hasError('rating')">
+              Enter number
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Comments" formControlName="comments">
+          </mat-form-field>
+        </div>
+      </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Save</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!editProgressForm.valid">Save</button>
       <button mat-raised-button color="basic" [routerLink]="['../']">Back</button>
     </mat-card-actions>
   </mat-card>

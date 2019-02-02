@@ -1,10 +1,25 @@
+<mat-toolbar>
+  <button mat-raised-button class="button-row" (click)="addNew()">Add</button>
+  <button mat-raised-button class="button-row" color="primary" (click)="edit()" [disabled]="selection.selected.length === 0">Edit</button>
+  <button mat-raised-button class="button-row" color="warn" (click)="remove()" [disabled]="selection.selected.length === 0">Remove</button>
+</mat-toolbar>
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" [dataSource]="(dataSource | async)" aria-label="Elements">
 
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+      </th>
+      <td mat-cell *matCellDef="let row;let index = index">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(index) : null"
+                      [checked]="selection.isSelected(index)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let row;let index = index" [routerLink]="[index]">{{row.name}}</td>
+      <td mat-cell *matCellDef="let row;let index = index">{{row.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="author">
@@ -20,6 +35,26 @@
     <ng-container matColumnDef="year">
       <th mat-header-cell *matHeaderCellDef>Year</th>
       <td mat-cell *matCellDef="let row">{{row.year}}</td>
+    </ng-container>
+    <ng-container matColumnDef="quarter">
+      <th mat-header-cell *matHeaderCellDef>Quarter</th>
+      <td mat-cell *matCellDef="let row">{{row.quarter}}</td>
+    </ng-container>
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef>Month</th>
+      <td mat-cell *matCellDef="let row">{{row.month}}</td>
+    </ng-container>
+    <ng-container matColumnDef="isComics">
+      <th mat-header-cell *matHeaderCellDef>isComics</th>
+      <td mat-cell *matCellDef="let row">{{row.isComics}}</td>
+    </ng-container>
+    <ng-container matColumnDef="isSeries">
+      <th mat-header-cell *matHeaderCellDef>isSeries</th>
+      <td mat-cell *matCellDef="let row">{{row.isSeries}}</td>
+    </ng-container>
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef>Rating</th>
+      <td mat-cell *matCellDef="let row">{{row.rating}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -4,7 +4,9 @@ import {Store} from '@ngrx/store';
 import {ProgressItem} from '../progress.model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {FetchProgressListAction} from '../store/progress.actions';
+import {FetchProgressListAction, RemoveProgressAction} from '../store/progress.actions';
+import {SelectionModel} from '@angular/cdk/collections';
+import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-progress',
@@ -18,16 +20,29 @@ export class ListProgressComponent implements OnInit {
       map(state => state.progressItemList)
     );
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'author', 'source', 'year'];
+  selection = new SelectionModel<number>(false, []);
 
-  constructor(private store: Store<AppState>) {}
+  displayedColumns = ['select', 'name', 'author', 'source', 'year', 'quarter', 'month', 'isComics', 'isSeries', 'rating'];
+
+  constructor(private store: Store<AppState>,
+              private route: ActivatedRoute,
+              private router: Router,
+              ) {}
 
   ngOnInit() {
     this.store.dispatch(new FetchProgressListAction());
   }
 
-  editRow(row){
-    console.log('fff', row);
+  addNew() {
+    this.router.navigate(['new'], { relativeTo: this.route});
   }
+
+  edit(){
+    this.router.navigate([this.selection.selected[0]], { relativeTo: this.route});
+  }
+
+  remove() {
+    this.store.dispatch(new RemoveProgressAction(this.selection.selected[0]));
+  }
+
 }

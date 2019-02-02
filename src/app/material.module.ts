@@ -4,7 +4,8 @@ import {MatSidenavModule, MatButtonModule, MatToolbarModule, MatFormFieldModule,
   MatListModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule} from '@angular/material';
+  MatSortModule,
+  MatCheckboxModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {MatSidenavModule, MatButtonModule, MatToolbarModule, MatFormFieldModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
   ],
   exports: [
     MatSidenavModule,
@@ -33,7 +35,8 @@ import {MatSidenavModule, MatButtonModule, MatToolbarModule, MatFormFieldModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
   ]
 })
 

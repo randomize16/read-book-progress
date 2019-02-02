@@ -1,6 +1,7 @@
 export interface ProgressItem {
   name: string;
   author: string;
+  genres: string;
   source: Source;
   year: string;
   quarter: Quarter;

@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {ProgressItem, Quarter, Source} from '../progress.model';
 import {AddProgressAction, UpdateProgressAction} from '../store/progress.actions';
 import {first, map} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
+import {Subscription, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-edit.progress',
@@ -18,6 +18,10 @@ export class EditProgressComponent implements OnInit, OnDestroy {
   private id: number;
   private editMode: boolean;
   private routeSubscribe: Subscription;
+
+  authors: Observable<any[]> = this.store.select('authors');
+  genreses: Observable<any[]> = this.store.select('genreses');
+
   sources = Object.entries(Source).map(value => {
     return {key: value[1], value: value[0]};
   });
@@ -25,11 +29,14 @@ export class EditProgressComponent implements OnInit, OnDestroy {
     return {key: value[1], value: value[0]};
   });
 
+  months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
   editProgressForm: FormGroup = this.fb.group({
     name: [null, Validators.required],
     author: null,
+    genres: null,
     source: null,
-    year: null,
+    year: [null, Validators.compose([Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)])],
     quarter: null,
     month: [null, Validators.compose([Validators.min(1), Validators.max(12)])],
     isComics: null,
@@ -46,16 +53,17 @@ export class EditProgressComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.routeSubscribe = this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.editMode = params['id'] === 'new';
-      this.store.select('progress').pipe(
-        first(),
-        map(state => state.progressItemList)
-      ).subscribe(progressList => {
-        this.editProgressForm.setValue(progressList[this.id]);
-      });
+      this.id = +params['id'];
+      this.editMode = params['id'] !== 'new';
+      if (this.editMode) {
+        this.store.select('progress').pipe(
+          first(),
+          map(state => state.progressItemList)
+        ).subscribe(progressList => {
+          this.editProgressForm.setValue(progressList[this.id]);
+        });
+      }
     });
-    console.log(this.sources);
   }
 
   ngOnDestroy(): void {
@@ -64,6 +72,11 @@ export class EditProgressComponent implements OnInit, OnDestroy {
 
   saveProgress() {
     this.router.navigate(['../']);
-    this.store.dispatch(new UpdateProgressAction({index: this.id, progressItem: this.editProgressForm.value}));
+    if (this.editMode) {
+      this.store.dispatch(new UpdateProgressAction({index: this.id, progressItem: this.editProgressForm.value}));
+    } else {
+      this.store.dispatch(new AddProgressAction(this.editProgressForm.value));
+
+    }
   }
 }
