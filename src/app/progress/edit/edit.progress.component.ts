@@ -4,6 +4,8 @@ import {ActivatedRoute, Router, Params} from '@angular/router';
 import {AppState} from '../../app.state';
 import {Store} from '@ngrx/store';
 import {Author} from '../../authors/author.model';
+import {FetchAuthors} from '../../authors/store/author.actions';
+import {FetchGenres} from '../../genres/store/genres.actions';
 import {ProgressItem, Quarter, Source} from '../progress.model';
 import {AddProgressAction, UpdateProgressAction} from '../store/progress.actions';
 import {debounceTime, filter, first, map, startWith, switchMap, tap} from 'rxjs/operators';
@@ -61,6 +63,8 @@ export class EditProgressComponent implements OnInit, OnDestroy {
               private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.store.dispatch(new FetchAuthors());
+    this.store.dispatch(new FetchGenres());
     this.routeSubscribe = this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] !== 'new';
@@ -78,7 +82,7 @@ export class EditProgressComponent implements OnInit, OnDestroy {
     this.filteredGenres = this.genresControl.valueChanges
       .pipe(
         debounceTime(500),
-        startWith(this.genresControl.value),
+        startWith(this.genresControl.value ? this.genresControl.value : ''),
         switchMap(filteredValue => {
           return this.genres
             .pipe(
@@ -93,7 +97,7 @@ export class EditProgressComponent implements OnInit, OnDestroy {
     this.filteredAuthors = this.authorControl.valueChanges
       .pipe(
         debounceTime(500),
-        startWith(this.authorControl.value),
+        startWith(this.authorControl.value ? this.authorControl.value : ''),
         switchMap(filteredValue => {
           return this.authors
             .pipe(

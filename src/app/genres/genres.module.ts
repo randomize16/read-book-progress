@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
+import {EffectsModule} from '@ngrx/effects';
 import {AuthGuard} from '../auth/auth.guard';
+import {AuthorsEffects} from '../authors/store/authors.effects';
 import {MaterialModule} from '../material.module';
 import { CreateGenresComponent } from './create-genres/create-genres.component';
 import {GenresComponent} from './genres.component';
 import {RouterModule, Routes} from '@angular/router';
+import {GenresEffects} from './store/genres.effects';
 
 const routes: Routes = [
   {
@@ -31,7 +34,8 @@ const routes: Routes = [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    EffectsModule.forFeature([GenresEffects]),
   ],
   exports: [
     RouterModule

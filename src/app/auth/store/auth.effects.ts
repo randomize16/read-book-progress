@@ -19,7 +19,7 @@ export class AuthEffects {
     mergeMap( (token: string) => {
       this.router.navigate(['/']);
       return [
-        new AuthActions.SetTokenAction(token),
+        new AuthActions.SetTokenAction({token: token, uid: firebase.auth().currentUser.uid}),
         new AuthActions.SigninAction()
       ];
     })
@@ -34,7 +34,7 @@ export class AuthEffects {
     mergeMap( (token: string) => {
       this.router.navigate(['/']);
       return [
-        new AuthActions.SetTokenAction(token),
+        new AuthActions.SetTokenAction({token: token, uid: firebase.auth().currentUser.uid}),
         new AuthActions.SignupAction()
       ];
     })

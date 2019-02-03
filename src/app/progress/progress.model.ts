@@ -5,7 +5,7 @@ export interface ProgressItem {
   source: Source;
   year: string;
   quarter: Quarter;
-  month: number[];
+  month: number;
   isComics: boolean;
   isSeries: boolean;
   rating: number;

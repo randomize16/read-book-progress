@@ -4,11 +4,13 @@ import * as fromAuthActions from './auth.actions';
 export class State {
   authenticated: boolean = false;
   token: string = null;
+  uid: string;
 }
 
 const initialState: State = {
   token: null,
-  authenticated: false
+  authenticated: false,
+  uid:  null
 };
 
 export function authReducers(state: State = initialState, action: fromAuthActions.AuthActions) {
@@ -23,10 +25,10 @@ export function authReducers(state: State = initialState, action: fromAuthAction
       };
     case (fromAuthActions.LOGOUT):
       return {
-        ...state, authenticated: false, token: null
+        ...state, authenticated: false, token: null, uid: null
       };
     case (fromAuthActions.SET_TOKEN):
-      return {...state, token: action.payload};
+      return {...state, token: action.payload.token, uid: action.payload.uid};
     default:
       return state;
   }

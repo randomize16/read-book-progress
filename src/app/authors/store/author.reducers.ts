@@ -22,6 +22,10 @@ export function authorActionReducer(state: State = {authors: []}, action: fromAu
     case (fromAuthorsAction.REMOVE_AUTHOR):
       const oldAuthors = state.authors.filter((value, index) => action.payload.indexOf(index) < 0);
       return {...state, authors: oldAuthors};
+    case (fromAuthorsAction.ADD_LIST_AUTHOR):
+      return {
+        ...state, authors: [...action.payload]
+      };
     default:
       return state;
   }

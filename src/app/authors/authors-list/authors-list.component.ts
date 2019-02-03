@@ -5,9 +5,8 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AppState} from '../../app.state';
-import {RemoveGenresAction} from '../../genres/store/genres.actions';
 import {Author} from '../author.model';
-import {RemoveAuthorAction} from '../store/author.actions';
+import {FetchAuthors, RemoveAuthorAction} from '../store/author.actions';
 
 @Component({
   selector: 'app-authors-list',
@@ -28,6 +27,7 @@ export class AuthorsListComponent implements OnInit {
     private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.store.dispatch(new FetchAuthors());
   }
 
   removeAuthors() {

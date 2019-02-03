@@ -53,7 +53,6 @@ export class AuthorEditComponent implements OnInit {
       this.store.dispatch(new AddAuthorAction(
         {...this.authorForm.value, fullName: this.authorForm.value.name + ' ' + this.authorForm.value.surname}));
     }
-
     this.router.navigate(['/authors']);
   }
 }
