@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormControl, AbstractControl} from '@angular/forms';
 import {ActivatedRoute, Router, Params} from '@angular/router';
 import {AppState} from '../../app.state';
 import {Store} from '@ngrx/store';
+import {Author} from '../../authors/author.model';
 import {ProgressItem, Quarter, Source} from '../progress.model';
 import {AddProgressAction, UpdateProgressAction} from '../store/progress.actions';
-import {first, map} from 'rxjs/operators';
+import {debounceTime, filter, first, map, startWith, switchMap, tap} from 'rxjs/operators';
 import {Subscription, Observable} from 'rxjs';
 
 @Component({
@@ -19,8 +20,16 @@ export class EditProgressComponent implements OnInit, OnDestroy {
   private editMode: boolean;
   private routeSubscribe: Subscription;
 
-  authors: Observable<any[]> = this.store.select('authors');
-  genreses: Observable<any[]> = this.store.select('genreses');
+  authors: Observable<any[]> = this.store.select('author').pipe(map(item => item.authors));
+  genres: Observable<{genre: string}[]> = this.store.select('genres').pipe(map(item => item.genres));
+
+  filteredGenres: Observable<{genre: string}[]>;
+  filteredAuthors: Observable<Author[]>;
+
+  genresControl: AbstractControl;
+  authorControl: AbstractControl;
+
+
 
   sources = Object.entries(Source).map(value => {
     return {key: value[1], value: value[0]};
@@ -64,6 +73,37 @@ export class EditProgressComponent implements OnInit, OnDestroy {
         });
       }
     });
+    this.genresControl = this.editProgressForm.get('genres');
+    this.authorControl = this.editProgressForm.get('author');
+    this.filteredGenres = this.genresControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        startWith(this.genresControl.value),
+        switchMap(filteredValue => {
+          return this.genres
+            .pipe(
+              map(genres => {
+                  return genres.filter(genre => genre.genre.toLowerCase().includes(filteredValue.toLowerCase()));
+                }
+              )
+            );
+        })
+      );
+
+    this.filteredAuthors = this.authorControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        startWith(this.authorControl.value),
+        switchMap(filteredValue => {
+          return this.authors
+            .pipe(
+              map(authors => {
+                  return authors.filter(author => author.fullName.toLowerCase().includes(filteredValue.toLowerCase()));
+                }
+              )
+            );
+        })
+      );
   }
 
   ngOnDestroy(): void {

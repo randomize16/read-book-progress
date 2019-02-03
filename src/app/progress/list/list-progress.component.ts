@@ -22,7 +22,7 @@ export class ListProgressComponent implements OnInit {
 
   selection = new SelectionModel<number>(false, []);
 
-  displayedColumns = ['select', 'name', 'author', 'source', 'year', 'quarter', 'month', 'isComics', 'isSeries', 'rating'];
+  displayedColumns = ['select', 'name', 'author', 'genres', 'source', 'year', 'quarter', 'month', 'isComics', 'isSeries', 'rating'];
 
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,

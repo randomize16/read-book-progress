@@ -1,29 +1,18 @@
 import * as fromGenresAction from './genres.actions';
 
 export class State {
-  genres: string[];
+  genres: {genre: string}[];
 }
 
-export function genresReducers(state: State, action: fromGenresAction.GenresActions) {
-  // switch (action.type) {
-  //   case (fromProgressAction.FETCH_DATA):
-  //     console.log('fetchong data');
-  //     return {...state};
-  //   case (fromProgressAction.SAVE_DATA):
-  //     return {...state};
-  //   case (fromProgressAction.ADD_PROGRESS):
-  //     return {...state, progressItemList: [...state.progressItemList, action.payload]};
-  //   case (fromProgressAction.UPDATE_PROGRESS):
-  //     const progressList = [...state.progressItemList];
-  //     progressList[action.payload.index] = {...action.payload.progressItem};
-  //     console.log('update data', progressList);
-  //     return {...state, progressItemList: progressList};
-  //   case (fromProgressAction.REMOVE_PROGRESS):
-  //     const oldProgressList = [...state.progressItemList];
-  //     oldProgressList.splice(action.payload)
-  //     return {...state, progressItemList: oldProgressList};
-  //   default:
-  //     return state;
-  // }
-  return state;
+
+export function genresReducers(state: State = {genres: [{genre: 'init genre'}]}, action: fromGenresAction.GenresActions) {
+  switch (action.type) {
+    case (fromGenresAction.ADD_GENRES):
+      return {...state, genres: [...state.genres, action.payload]};
+    case (fromGenresAction.REMOVE_GENRES):
+      const oldGenres = state.genres.filter((value, index) => action.payload.indexOf(index) < 0);
+      return {...state, genres: oldGenres};
+    default:
+      return state;
+  }
 }

@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import {MatSelectionList} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {AppState} from '../app.state';
+import {RemoveGenresAction} from './store/genres.actions';
 
 @Component({
   selector: 'app-genres',
@@ -7,24 +13,18 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./genres.component.less']
 })
 export class GenresComponent {
-  genresForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
 
+  @ViewChild('genresList')
+    private selectedGenres: MatSelectionList;
 
-  constructor(private fb: FormBuilder) {}
+  genres: Observable<{genre: string}[]> = this.store.select('genres')
+    .pipe(map(value => value.genres));
 
-  onSubmit() {
-    alert('Thanks!');
+  constructor(private store: Store<AppState>) {}
+
+  removeGenres() {
+    this.store.dispatch(new RemoveGenresAction(this.selectedGenres.selectedOptions.selected
+      .map(item => item.value)));
   }
+
 }

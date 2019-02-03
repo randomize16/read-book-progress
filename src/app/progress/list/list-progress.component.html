@@ -27,6 +27,11 @@
       <td mat-cell *matCellDef="let row">{{row.author}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="genres">
+      <th mat-header-cell *matHeaderCellDef>Genres</th>
+      <td mat-cell *matCellDef="let row">{{row.genres}}</td>
+    </ng-container>
+
     <ng-container matColumnDef="source">
       <th mat-header-cell *matHeaderCellDef>Source</th>
       <td mat-cell *matCellDef="let row">{{row.source}}</td>
@@ -46,11 +51,15 @@
     </ng-container>
     <ng-container matColumnDef="isComics">
       <th mat-header-cell *matHeaderCellDef>isComics</th>
-      <td mat-cell *matCellDef="let row">{{row.isComics}}</td>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox [checked]="row.isComics" disabled></mat-checkbox>
+      </td>
     </ng-container>
     <ng-container matColumnDef="isSeries">
       <th mat-header-cell *matHeaderCellDef>isSeries</th>
-      <td mat-cell *matCellDef="let row">{{row.isSeries}}</td>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox [checked]="row.isSeries" disabled></mat-checkbox>
+      </td>
     </ng-container>
     <ng-container matColumnDef="rating">
       <th mat-header-cell *matHeaderCellDef>Rating</th>

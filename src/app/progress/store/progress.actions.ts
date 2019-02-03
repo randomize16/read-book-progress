@@ -1,9 +1,9 @@
 import {Action} from '@ngrx/store';
 import {ProgressItem} from '../progress.model';
 
-export const FETCH_DATA = 'FETCH_DATA';
-export const SAVE_DATA = 'SAVE_DATA';
-export const ADD_PROGRESS = 'ADD_ITEM';
+export const FETCH_PROGRESS_DATA = 'FETCH_PROGRESS_DATA';
+export const SAVE_PROGRESS_DATA = 'SAVE_PROGRESS_DATA';
+export const ADD_PROGRESS = 'ADD_PROGRESS';
 export const REMOVE_PROGRESS = 'REMOVE_PROGRESS';
 export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 
@@ -11,11 +11,11 @@ export const UPDATE_PROGRESS = 'UPDATE_PROGRESS';
 
 
 export class FetchProgressListAction implements Action {
-  readonly type = FETCH_DATA;
+  readonly type = FETCH_PROGRESS_DATA;
 }
 
 export class SaveProgressListAction implements Action{
-  readonly type = SAVE_DATA;
+  readonly type = SAVE_PROGRESS_DATA;
 }
 
 export class AddProgressAction implements Action{

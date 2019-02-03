@@ -27,10 +27,9 @@ const initialState: State = {
 
 export function progressReducers(state: State = initialState, action: fromProgressAction.ProgressActions) {
   switch (action.type) {
-    case (fromProgressAction.FETCH_DATA):
-      console.log('fetchong data');
+    case (fromProgressAction.FETCH_PROGRESS_DATA):
       return {...state};
-    case (fromProgressAction.SAVE_DATA):
+    case (fromProgressAction.SAVE_PROGRESS_DATA):
       return {...state};
     case (fromProgressAction.ADD_PROGRESS):
       return {...state, progressItemList: [...state.progressItemList, action.payload]};

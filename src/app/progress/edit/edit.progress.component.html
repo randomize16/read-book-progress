@@ -26,20 +26,28 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Author" formControlName="author">
-              <mat-option *ngFor="let author of (authors | async)" [value]="author.key">
-                {{author.value}}
+            <input type="text" placeholder="Author" aria-label="Author" matInput formControlName="author" [matAutocomplete]="autoAuthor">
+            <mat-autocomplete autoActiveFirstOption #autoAuthor="matAutocomplete">
+              <mat-option *ngFor="let author of (filteredAuthors | async)" [value]="author.fullName">
+                {{author.fullName}}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
+            <button mat-button *ngIf="authorControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="authorControl.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <mat-select placeholder="Genres" formControlName="genres">
-              <mat-option *ngFor="let genres of (genreses | async)" [value]="genres.key">
-                {{quarter.value}}
+            <input type="text" placeholder="Genres" aria-label="Genres" matInput formControlName="genres" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let genre of (filteredGenres | async)" [value]="genre.genre">
+                {{genre.genre}}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
+            <button mat-button *ngIf="genresControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="genresControl.setValue('')">
+              <mat-icon>close</mat-icon>
+            </button>
           </mat-form-field>
         </div>
       </div>
@@ -78,11 +86,11 @@
         <div class="col">
           <mat-checkbox formControlName="isSeries">Serias?</mat-checkbox>
         </div>
+      </div>
+      <div class="row">
         <div class="col">
           <mat-checkbox formControlName="isSeries">Serias?</mat-checkbox>
         </div>
-      </div>
-      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Rating" formControlName="rating">
@@ -91,9 +99,11 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Comments" formControlName="comments">
+            <textarea matInput placeholder="Comments" formControlName="comments"></textarea>
           </mat-form-field>
         </div>
       </div>
