@@ -6,6 +6,7 @@ export const SIGNIN = 'SIGNIN';
 export const SIGNUP = 'SIGNUP';
 export const LOGOUT = 'LOGOUT';
 export const SET_TOKEN = 'SET_TOKEN';
+export const AUTH_ERROR = 'AUTH_ERROR';
 
 export class TrySigninAction implements Action {
   readonly type = TRY_SIGNIN;
@@ -32,4 +33,9 @@ export class SetTokenAction implements Action {
   constructor(public payload: {token: string, uid: string}) {}
 }
 
-export type AuthActions = TrySigninAction | SigninAction | TrySignupAction | SignupAction | LogoutAction | SetTokenAction;
+export class AuthError implements Action {
+  readonly type = AUTH_ERROR;
+  constructor(public payload: string) {}
+}
+
+export type AuthActions = TrySigninAction | SigninAction | TrySignupAction | SignupAction | LogoutAction | SetTokenAction | AuthError;

@@ -7,6 +7,9 @@ import {map} from 'rxjs/operators';
   selector: '[appAuthenticated]'
 })
 export class AuthenticatedDirective {
+
+  private isSHow: boolean = false;
+
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
@@ -18,9 +21,13 @@ export class AuthenticatedDirective {
       .pipe(map(state => state.authenticated))
       .subscribe(authenticated => {
           if (authenticated === !hide) {
+            if(!this.isSHow) {
               this.viewContainer.createEmbeddedView(this.templateRef);
+              this.isSHow = true;
+            }
           } else {
               this.viewContainer.clear();
+              this.isSHow = false;
           }
     });
   }

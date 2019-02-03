@@ -20,6 +20,8 @@ export class SigninComponent {
     ])]
   });
 
+  authError = this.store.select('auth');
+
   constructor(private store: Store<AppState>, private fb: FormBuilder) {}
 
   signIn() {

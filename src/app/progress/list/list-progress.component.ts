@@ -45,4 +45,8 @@ export class ListProgressComponent implements OnInit {
     this.store.dispatch(new RemoveProgressAction(this.selection.selected[0]));
   }
 
+  editRow(index) {
+    this.router.navigate([index], { relativeTo: this.route});
+
+  }
 }
